@@ -1,1 +1,301 @@
-# noorabishop
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noorabi — প্রিমিয়াম হিজাব কালেকশন</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', sans-serif; background: #f5f5f5; color: #222; max-width: 480px; margin: 0 auto; }
+
+  /* HEADER */
+  .header { background: #fff; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #eee; }
+  .header-brand { font-size: 22px; font-weight: 700; color: #222; }
+  .header-tag { font-size: 10px; color: #b07a63; letter-spacing: 0.15em; text-transform: uppercase; }
+
+  /* PRODUCT IMAGE */
+  .product-img-main { background: #f9ede8; width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 100px; position: relative; }
+  .img-badge { position: absolute; top: 12px; left: 12px; background: #e53935; color: white; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 4px; }
+  .thumb-row { background: #fff; display: flex; gap: 8px; padding: 10px 12px; border-bottom: 1px solid #eee; }
+  .thumb { width: 60px; height: 60px; background: #f9ede8; border-radius: 6px; border: 2px solid #ddd; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; }
+  .thumb.active { border-color: #e53935; }
+
+  /* PRODUCT INFO */
+  .product-info { background: #fff; padding: 16px; margin-bottom: 8px; }
+  .product-title { font-size: 18px; font-weight: 700; line-height: 1.4; margin-bottom: 10px; color: #111; }
+  .price-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .price-old { font-size: 16px; color: #999; text-decoration: line-through; }
+  .price-new { font-size: 26px; font-weight: 700; color: #e53935; }
+  .order-btn-top { display: block; width: 100%; background: #e53935; color: white; font-size: 18px; font-weight: 700; padding: 14px; border: none; border-radius: 8px; cursor: pointer; text-align: center; margin-bottom: 14px; }
+  .cod-note { text-align: center; font-size: 13px; color: #555; margin-bottom: 14px; }
+  .guarantee-box { background: #f0fff4; border: 1.5px solid #43a047; border-radius: 8px; padding: 10px 14px; font-size: 14px; font-weight: 700; color: #2e7d32; margin-bottom: 14px; text-align: center; }
+  .product-desc { font-size: 14px; color: #444; line-height: 1.8; margin-bottom: 14px; }
+  .features { list-style: none; margin-bottom: 14px; }
+  .features li { font-size: 14px; color: #333; padding: 5px 0; display: flex; gap: 8px; align-items: flex-start; line-height: 1.5; }
+  .divider { height: 1px; background: #eee; margin: 14px 0; }
+  .spec-row { display: flex; gap: 8px; font-size: 14px; color: #555; padding: 4px 0; }
+  .spec-label { font-weight: 600; color: #333; min-width: 80px; }
+  .stock-note { background: #fff8e1; border-left: 4px solid #ffa000; padding: 10px 14px; font-size: 14px; color: #555; border-radius: 0 6px 6px 0; margin-top: 10px; }
+
+  /* ORDER FORM */
+  .form-section { background: #fff; padding: 16px; margin-bottom: 8px; }
+  .form-header { background: #222; color: white; text-align: center; padding: 14px; font-size: 16px; font-weight: 700; border-radius: 8px; margin-bottom: 16px; line-height: 1.5; }
+  .form-label { font-size: 14px; font-weight: 600; color: #222; margin-bottom: 6px; display: block; }
+  .form-label span { color: #e53935; }
+  .form-input, .form-textarea { width: 100%; border: 1.5px solid #b2dfdb; border-radius: 8px; padding: 12px 14px; font-size: 15px; color: #222; background: #f0fffe; outline: none; margin-bottom: 14px; font-family: inherit; }
+  .form-textarea { min-height: 90px; resize: vertical; }
+  .form-input:focus, .form-textarea:focus { border-color: #00897b; }
+
+  /* DELIVERY OPTIONS */
+  .delivery-title { font-size: 14px; font-weight: 600; color: #222; margin-bottom: 10px; }
+  .delivery-options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+  .delivery-option { border: 1.5px solid #b2dfdb; border-radius: 8px; padding: 12px 14px; display: flex; align-items: center; gap: 12px; cursor: pointer; background: #f0fffe; transition: all 0.2s; }
+  .delivery-option.selected { border-color: #00897b; background: #e0f2f1; }
+  .delivery-option input[type="radio"] { width: 18px; height: 18px; accent-color: #00897b; cursor: pointer; }
+  .delivery-option-text { font-size: 14px; color: #222; }
+  .delivery-option-price { font-size: 14px; font-weight: 700; color: #222; }
+
+  /* ORDER SUMMARY */
+  .summary-box { background: #f9f9f9; border: 1px solid #eee; border-radius: 8px; padding: 12px 14px; margin-bottom: 16px; }
+  .summary-row { display: flex; justify-content: space-between; font-size: 14px; color: #555; padding: 4px 0; }
+  .summary-row.total { border-top: 1px solid #ddd; margin-top: 8px; padding-top: 10px; font-size: 17px; font-weight: 700; color: #222; }
+
+  /* SUBMIT */
+  .submit-btn { display: block; width: 100%; background: #e53935; color: white; font-size: 18px; font-weight: 700; padding: 16px; border: none; border-radius: 50px; cursor: pointer; text-align: center; margin-bottom: 12px; }
+  .submit-btn:disabled { background: #ccc; cursor: not-allowed; }
+  .submit-note { text-align: center; font-size: 12px; color: #888; line-height: 1.6; }
+
+  /* SUCCESS */
+  .success-box { display: none; text-align: center; padding: 2rem 1rem; }
+  .success-icon { font-size: 60px; margin-bottom: 1rem; }
+  .success-title { font-size: 22px; font-weight: 700; color: #2e7d32; margin-bottom: 0.5rem; }
+  .success-sub { font-size: 14px; color: #555; line-height: 1.8; }
+
+  /* FOOTER */
+  footer { background: #222; color: rgba(255,255,255,0.6); text-align: center; padding: 1.2rem; font-size: 12px; }
+  footer strong { color: white; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <div class="header-brand">Noorabi</div>
+    <div class="header-tag">Experience the Premium</div>
+  </div>
+  <div style="font-size:13px; color:#555;">📞 01700-000000</div>
+</div>
+
+<!-- PRODUCT IMAGE -->
+<div class="product-img-main" id="main-img">
+  🧕
+  <div class="img-badge">৪০% ছাড়</div>
+</div>
+
+<!-- THUMBNAILS -->
+<div class="thumb-row">
+  <div class="thumb active" onclick="setThumb(this,'🧕')">🧕</div>
+  <div class="thumb" onclick="setThumb(this,'🌸')">🌸</div>
+  <div class="thumb" onclick="setThumb(this,'✨')">✨</div>
+  <div class="thumb" onclick="setThumb(this,'🎀')">🎀</div>
+</div>
+
+<!-- PRODUCT INFO -->
+<div class="product-info">
+  <h1 class="product-title">প্রিমিয়াম হিজাব কালেকশন (১ পিস)</h1>
+  <div class="price-row">
+    <div class="price-old">৳ ৪৯৯.০০</div>
+    <div class="price-new">৳ ২৯৯.০০</div>
+  </div>
+
+  <button class="order-btn-top" onclick="document.getElementById('order-section').scrollIntoView({behavior:'smooth'})">
+    অর্ডার করুন
+  </button>
+
+  <div class="cod-note">সেরা মানের নিশ্চয়তায় সম্পূর্ণ ক্যাশ অন ডেলিভারিতে অর্ডার করে ফেলুন</div>
+
+  <div class="guarantee-box">
+    ২ বছরের কালার গ্যারান্টি | ১০০% ওয়াটারপ্রুফ | স্কিন-সেইফ
+  </div>
+
+  <p class="product-desc">
+    নিয়ে এলাম প্রিমিয়াম হিজাব কালেকশন — মিনিমালিস্ট ডিজাইন ও রিচ লুকের ফিনিশের এক অনন্য সংমিশ্রণ।
+  </p>
+
+  <ul class="features">
+    <li>🌟 <span><strong>সুপার সফট ফ্যাব্রিক</strong> — পরতে আরামদায়ক ও শ্বাসযোগ্য</span></li>
+    <li>💎 <span><strong>প্রিমিয়াম কোয়ালিটি</strong> — দীর্ঘস্থায়ী রঙ ও ফিনিশ</span></li>
+    <li>🌊 <span><strong>১০০% ওয়াটারপ্রুফ</strong> — ঘাম, গোসল ও দৈনিক ইউজে সম্পূর্ণ নিরাপদ</span></li>
+    <li>🌿 <span><strong>স্কিন-সেইফ</strong> — অ্যালার্জি ফ্রি, সারাদিন আরামদায়ক ব্যবহার</span></li>
+    <li>✨ <span><strong>মিনিমালিস্ট লাক্সারি ডিজাইন</strong> — সিম্পল, এলিগ্যান্ট ও লং-লাস্টিং</span></li>
+  </ul>
+
+  <div class="divider"></div>
+
+  <div class="spec-row"><span class="spec-label">📌 টাইপ:</span> <span>প্রিমিয়াম হিজাব</span></div>
+  <div class="spec-row"><span class="spec-label">📦 পরিমাণ:</span> <span>১ পিস</span></div>
+  <div class="spec-row"><span class="spec-label">💰 আগের মূল্য:</span> <span>৳ ৪৯৯ টাকা</span></div>
+  <div class="spec-row"><span class="spec-label">🔥 এখন মাত্র:</span> <span style="color:#e53935; font-weight:700;">৳ ২৯৯ টাকা</span></div>
+
+  <div class="stock-note">
+    ⚠️ <strong>স্টক সীমিত!</strong> এখনই অর্ডার করে নিজের লুককে করুন আরও গর্জিয়াস 🌸
+  </div>
+</div>
+
+<!-- ORDER FORM -->
+<div class="form-section" id="order-section">
+  <div class="form-header">অর্ডার করতে আপনার তথ্য দিয়ে নিচের ফরমটি পূরণ করুন</div>
+
+  <div id="the-form">
+    <label class="form-label">আপনার নাম <span>*</span></label>
+    <input type="text" class="form-input" id="f-name" placeholder="আপনার সম্পূর্ণ নাম">
+
+    <label class="form-label">আপনার মোবাইল নাম্বার <span>*</span></label>
+    <input type="tel" class="form-input" id="f-phone" placeholder="01XXXXXXXXX">
+
+    <label class="form-label">আপনার সম্পূর্ণ ঠিকানা <span>*</span></label>
+    <textarea class="form-textarea" id="f-address" placeholder="রোড, এলাকা, থানা, জেলা"></textarea>
+
+    <label class="form-label">অর্ডার নোট (ঐচ্ছিক)</label>
+    <input type="text" class="form-input" id="f-note" placeholder="বিশেষ কোনো নির্দেশনা থাকলে লিখুন">
+
+    <div class="delivery-title">ডেলিভারি এলাকা নির্বাচন করুন <span style="color:#e53935">*</span></div>
+    <div class="delivery-options">
+      <label class="delivery-option" id="opt-outside" onclick="selectDelivery('outside')">
+        <input type="radio" name="delivery" value="outside" onchange="selectDelivery('outside')">
+        <div style="flex:1">
+          <div class="delivery-option-text">ঢাকা সিটির বাইরে</div>
+        </div>
+        <div class="delivery-option-price">৳ ১২০.০০</div>
+      </label>
+      <label class="delivery-option" id="opt-dhaka" onclick="selectDelivery('dhaka')">
+        <input type="radio" name="delivery" value="dhaka" onchange="selectDelivery('dhaka')">
+        <div style="flex:1">
+          <div class="delivery-option-text">ঢাকা সিটির ভেতরে</div>
+        </div>
+        <div class="delivery-option-price">৳ ৬০.০০</div>
+      </label>
+    </div>
+
+    <!-- Summary -->
+    <div class="summary-box">
+      <div class="summary-row">
+        <span>প্রিমিয়াম হিজাব (১ পিস)</span>
+        <span>৳২৯৯</span>
+      </div>
+      <div class="summary-row">
+        <span>ডেলিভারি চার্জ</span>
+        <span id="s-delivery">— নির্বাচন করুন</span>
+      </div>
+      <div class="summary-row total">
+        <span>মোট</span>
+        <span id="s-total">৳২৯৯</span>
+      </div>
+    </div>
+
+    <button class="submit-btn" id="submit-btn" onclick="submitOrder()">
+      অর্ডার কনফার্ম করুন
+    </button>
+    <div class="submit-note">
+      আমাদের একজন কাস্টমার প্রতিনিধি আপনার কল করে আবার কনফার্ম করবে 🌸
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="success-box" id="success-box">
+    <div class="success-icon">✅</div>
+    <div class="success-title">অর্ডার সফল হয়েছে!</div>
+    <p class="success-sub">
+      ধন্যবাদ আপনার অর্ডারের জন্য 🌸<br>
+      আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।<br><br>
+      📞 <strong>01700-000000</strong><br>
+      📘 <strong>facebook.com/noorabi</strong>
+    </p>
+  </div>
+</div>
+
+<!-- SECOND ORDER BUTTON AT BOTTOM -->
+<div style="padding: 0 16px 20px; background:#fff;">
+  <button class="order-btn-top" onclick="document.getElementById('order-section').scrollIntoView({behavior:'smooth'})">
+    অর্ডার করুন
+  </button>
+</div>
+
+<footer>
+  <strong>Noorabi</strong> — Experience the Premium<br>
+  📞 01700-000000 | 📘 facebook.com/noorabi<br>
+  © 2025 Noorabi. All rights reserved.
+</footer>
+
+<script>
+  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbypZQ0ESlRDVLGabO3ksjGTPCFLTdZ4Gb2cUgQhajxw41fSXO1KsFImoTMSiH6pY4kj/exec';
+  var deliveryArea = '';
+  var deliveryCharge = 0;
+
+  function setThumb(el, emoji) {
+    document.querySelectorAll('.thumb').forEach(function(t) { t.classList.remove('active'); });
+    el.classList.add('active');
+    document.getElementById('main-img').childNodes[0].textContent = emoji;
+  }
+
+  function selectDelivery(type) {
+    deliveryArea = type;
+    document.querySelectorAll('.delivery-option').forEach(function(o) { o.classList.remove('selected'); });
+    document.querySelectorAll('input[name="delivery"]').forEach(function(r) { r.checked = false; });
+    if (type === 'dhaka') {
+      deliveryCharge = 60;
+      document.getElementById('opt-dhaka').classList.add('selected');
+      document.querySelector('#opt-dhaka input').checked = true;
+      document.getElementById('s-delivery').textContent = '৳৬০';
+    } else {
+      deliveryCharge = 120;
+      document.getElementById('opt-outside').classList.add('selected');
+      document.querySelector('#opt-outside input').checked = true;
+      document.getElementById('s-delivery').textContent = '৳১২০';
+    }
+    document.getElementById('s-total').textContent = '৳' + (299 + deliveryCharge);
+  }
+
+  function submitOrder() {
+    var name = document.getElementById('f-name').value.trim();
+    var phone = document.getElementById('f-phone').value.trim();
+    var address = document.getElementById('f-address').value.trim();
+    var note = document.getElementById('f-note').value.trim();
+
+    if (!name) { alert('অনুগ্রহ করে আপনার নাম লিখুন।'); return; }
+    if (!phone || phone.length < 11) { alert('সঠিক মোবাইল নম্বর দিন।'); return; }
+    if (!address) { alert('সম্পূর্ণ ঠিকানা লিখুন।'); return; }
+    if (!deliveryArea) { alert('ডেলিভারি এলাকা নির্বাচন করুন।'); return; }
+
+    var btn = document.getElementById('submit-btn');
+    btn.textContent = '⏳ অর্ডার পাঠানো হচ্ছে...';
+    btn.disabled = true;
+
+    var now = new Date();
+    var date = now.toLocaleString('en-GB');
+    var areaText = deliveryArea === 'dhaka' ? 'ঢাকা সিটির ভেতরে' : 'ঢাকা সিটির বাইরে';
+    var total = '৳' + (299 + deliveryCharge);
+
+    var params = '?date=' + encodeURIComponent(date)
+      + '&name=' + encodeURIComponent(name)
+      + '&phone=' + encodeURIComponent(phone)
+      + '&area=' + encodeURIComponent(areaText)
+      + '&address=' + encodeURIComponent(address)
+      + '&note=' + encodeURIComponent(note || 'নেই')
+      + '&total=' + encodeURIComponent(total);
+
+    var img = new Image();
+    img.onload = showSuccess;
+    img.onerror = showSuccess;
+    img.src = SCRIPT_URL + params;
+  }
+
+  function showSuccess() {
+    document.getElementById('the-form').style.display = 'none';
+    document.getElementById('success-box').style.display = 'block';
+    window.scrollTo({ top: document.getElementById('order-section').offsetTop, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
