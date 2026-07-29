@@ -1,0 +1,261 @@
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+.nb-wrap { font-family: 'Segoe UI', sans-serif; background: #f5f5f5; color: #222; max-width: 480px; margin: 0 auto; }
+
+/* HEADER */
+.nb-header { background: #fff; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #eee; }
+.nb-brand { font-size: 22px; font-weight: 700; color: #222; }
+.nb-tag { font-size: 10px; color: #b07a63; letter-spacing: 0.15em; text-transform: uppercase; }
+
+/* PRODUCT IMAGE */
+.nb-main-img { width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; background: #f9ede8; }
+.nb-main-img img { width: 100%; height: 100%; object-fit: cover; }
+.nb-img-badge { position: absolute; top: 12px; left: 12px; background: #e53935; color: white; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 4px; z-index: 2; }
+.nb-thumb-row { background: #fff; display: flex; gap: 8px; padding: 10px 12px; border-bottom: 1px solid #eee; overflow-x: auto; }
+.nb-thumb { width: 64px; height: 64px; border-radius: 6px; border: 2px solid #ddd; overflow: hidden; cursor: pointer; flex-shrink: 0; }
+.nb-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.nb-thumb.active { border-color: #e53935; }
+
+/* PRODUCT INFO */
+.nb-info { background: #fff; padding: 16px; margin-bottom: 8px; }
+.nb-title { font-size: 18px; font-weight: 700; line-height: 1.4; margin-bottom: 10px; color: #111; }
+.nb-price-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.nb-price-old { font-size: 16px; color: #999; text-decoration: line-through; }
+.nb-price-new { font-size: 26px; font-weight: 700; color: #e53935; }
+.nb-order-btn { display: block; width: 100%; background: #e53935; color: white; font-size: 18px; font-weight: 700; padding: 14px; border: none; border-radius: 8px; cursor: pointer; text-align: center; margin-bottom: 14px; }
+.nb-cod { text-align: center; font-size: 13px; color: #555; margin-bottom: 14px; }
+.nb-guarantee { background: #f0fff4; border: 1.5px solid #43a047; border-radius: 8px; padding: 10px 14px; font-size: 14px; font-weight: 700; color: #2e7d32; margin-bottom: 14px; text-align: center; }
+.nb-desc { font-size: 14px; color: #444; line-height: 1.8; margin-bottom: 14px; }
+.nb-features { list-style: none; margin-bottom: 14px; }
+.nb-features li { font-size: 14px; color: #333; padding: 5px 0; display: flex; gap: 8px; line-height: 1.5; }
+.nb-divider { height: 1px; background: #eee; margin: 14px 0; }
+.nb-spec { display: flex; gap: 8px; font-size: 14px; color: #555; padding: 4px 0; }
+.nb-spec b { color: #333; min-width: 90px; }
+.nb-stock { background: #fff8e1; border-left: 4px solid #ffa000; padding: 10px 14px; font-size: 14px; color: #555; border-radius: 0 6px 6px 0; margin-top: 10px; }
+
+/* ORDER FORM */
+.nb-form-wrap { background: #fff; padding: 16px; margin-bottom: 8px; }
+.nb-form-header { background: #222; color: white; text-align: center; padding: 14px; font-size: 16px; font-weight: 700; border-radius: 8px; margin-bottom: 16px; line-height: 1.5; }
+.nb-label { font-size: 14px; font-weight: 600; color: #222; margin-bottom: 6px; display: block; }
+.nb-label span { color: #e53935; }
+.nb-input, .nb-textarea { width: 100%; border: 1.5px solid #b2dfdb; border-radius: 8px; padding: 12px 14px; font-size: 15px; color: #222; background: #f0fffe; outline: none; margin-bottom: 14px; font-family: inherit; }
+.nb-textarea { min-height: 90px; resize: vertical; }
+.nb-input:focus, .nb-textarea:focus { border-color: #00897b; }
+.nb-del-title { font-size: 14px; font-weight: 600; color: #222; margin-bottom: 10px; }
+.nb-del-opts { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.nb-del-opt { border: 1.5px solid #b2dfdb; border-radius: 8px; padding: 12px 14px; display: flex; align-items: center; gap: 12px; cursor: pointer; background: #f0fffe; }
+.nb-del-opt.selected { border-color: #00897b; background: #e0f2f1; }
+.nb-del-opt input { width: 18px; height: 18px; accent-color: #00897b; }
+.nb-del-price { font-size: 14px; font-weight: 700; color: #222; margin-left: auto; }
+.nb-summary { background: #f9f9f9; border: 1px solid #eee; border-radius: 8px; padding: 12px 14px; margin-bottom: 16px; }
+.nb-sum-row { display: flex; justify-content: space-between; font-size: 14px; color: #555; padding: 4px 0; }
+.nb-sum-row.total { border-top: 1px solid #ddd; margin-top: 8px; padding-top: 10px; font-size: 17px; font-weight: 700; color: #222; }
+.nb-submit { display: block; width: 100%; background: #e53935; color: white; font-size: 18px; font-weight: 700; padding: 16px; border: none; border-radius: 50px; cursor: pointer; margin-bottom: 12px; }
+.nb-submit:disabled { background: #ccc; cursor: not-allowed; }
+.nb-submit-note { text-align: center; font-size: 12px; color: #888; line-height: 1.6; }
+.nb-success { display: none; text-align: center; padding: 2rem 1rem; }
+.nb-success-icon { font-size: 60px; margin-bottom: 1rem; }
+.nb-success-title { font-size: 22px; font-weight: 700; color: #2e7d32; margin-bottom: 0.5rem; }
+.nb-success-sub { font-size: 14px; color: #555; line-height: 1.8; }
+.nb-footer { background: #222; color: rgba(255,255,255,0.6); text-align: center; padding: 1.2rem; font-size: 12px; }
+.nb-footer strong { color: white; }
+</style>
+
+<div class="nb-wrap">
+
+  <!-- ✅ HEADER — Brand name ও phone number বদলান -->
+  <div class="nb-header">
+    <div>
+      <div class="nb-brand">Noorabi</div>
+      <div class="nb-tag">Experience the Premium</div>
+    </div>
+    <div style="font-size:13px;color:#555;">📞 01700-000000</div>
+  </div>
+
+  <!-- ✅ MAIN IMAGE — src এ আপনার image link বসান -->
+  <div class="nb-main-img" id="nb-main-img">
+    <div class="nb-img-badge">৪০% ছাড়</div>
+    <img id="nb-img-main" src="https://i.imgur.com/YOUR_IMAGE.jpg" alt="Product Image" onerror="this.parentNode.style.fontSize='80px'; this.parentNode.innerHTML+='🧕'; this.remove();">
+  </div>
+
+  <!-- ✅ THUMBNAILS — প্রতিটা thumb এ src বদলান -->
+  <div class="nb-thumb-row">
+    <div class="nb-thumb active" onclick="nbThumb(this,'https://i.imgur.com/YOUR_IMAGE.jpg')">
+      <img src="https://i.imgur.com/YOUR_IMAGE.jpg" onerror="this.parentNode.innerHTML='🧕'; this.remove();">
+    </div>
+    <div class="nb-thumb" onclick="nbThumb(this,'https://i.imgur.com/YOUR_IMG2.jpg')">
+      <img src="https://i.imgur.com/YOUR_IMG2.jpg" onerror="this.parentNode.innerHTML='🌸'; this.remove();">
+    </div>
+    <div class="nb-thumb" onclick="nbThumb(this,'https://i.imgur.com/YOUR_IMG3.jpg')">
+      <img src="https://i.imgur.com/YOUR_IMG3.jpg" onerror="this.parentNode.innerHTML='✨'; this.remove();">
+    </div>
+    <div class="nb-thumb" onclick="nbThumb(this,'https://i.imgur.com/YOUR_IMG4.jpg')">
+      <img src="https://i.imgur.com/YOUR_IMG4.jpg" onerror="this.parentNode.innerHTML='🎀'; this.remove();">
+    </div>
+  </div>
+
+  <!-- ✅ PRODUCT INFO — সব text বদলান -->
+  <div class="nb-info">
+    <h1 class="nb-title">প্রিমিয়াম হিজাব কালেকশন (১ পিস)</h1>
+    <div class="nb-price-row">
+      <div class="nb-price-old">৳ ৪৯৯.০০</div>
+      <div class="nb-price-new">৳ ২৯৯.০০</div>
+    </div>
+
+    <button class="nb-order-btn" onclick="document.getElementById('nb-order').scrollIntoView({behavior:'smooth'})">
+      অর্ডার করুন
+    </button>
+
+    <div class="nb-cod">সেরা মানের নিশ্চয়তায় সম্পূর্ণ ক্যাশ অন ডেলিভারিতে অর্ডার করে ফেলুন</div>
+
+    <!-- ✅ গ্যারান্টি text বদলান -->
+    <div class="nb-guarantee">২ বছরের কালার গ্যারান্টি | ১০০% ওয়াটারপ্রুফ | স্কিন-সেইফ</div>
+
+    <!-- ✅ Description বদলান -->
+    <p class="nb-desc">নিয়ে এলাম প্রিমিয়াম হিজাব কালেকশন — মিনিমালিস্ট ডিজাইন ও রিচ লুকের ফিনিশের এক অনন্য সংমিশ্রণ।</p>
+
+    <!-- ✅ Features বদলান -->
+    <ul class="nb-features">
+      <li>🌟 <span><strong>সুপার সফট ফ্যাব্রিক</strong> — পরতে আরামদায়ক ও শ্বাসযোগ্য</span></li>
+      <li>💎 <span><strong>প্রিমিয়াম কোয়ালিটি</strong> — দীর্ঘস্থায়ী রঙ ও ফিনিশ</span></li>
+      <li>🌊 <span><strong>১০০% ওয়াটারপ্রুফ</strong> — ঘাম, গোসল ও দৈনিক ইউজে নিরাপদ</span></li>
+      <li>🌿 <span><strong>স্কিন-সেইফ</strong> — অ্যালার্জি ফ্রি, সারাদিন আরামদায়ক</span></li>
+      <li>✨ <span><strong>মিনিমালিস্ট ডিজাইন</strong> — সিম্পল, এলিগ্যান্ট ও লং-লাস্টিং</span></li>
+    </ul>
+
+    <div class="nb-divider"></div>
+
+    <div class="nb-spec"><b>📌 টাইপ:</b> প্রিমিয়াম হিজাব</div>
+    <div class="nb-spec"><b>📦 পরিমাণ:</b> ১ পিস</div>
+    <div class="nb-spec"><b>💰 আগের মূল্য:</b> ৳৪৯৯ টাকা</div>
+    <div class="nb-spec"><b>🔥 এখন মাত্র:</b> <span style="color:#e53935;font-weight:700;">৳২৯৯ টাকা</span></div>
+
+    <div class="nb-stock">⚠️ <strong>স্টক সীমিত!</strong> এখনই অর্ডার করে নিজের লুককে করুন আরও গর্জিয়াস 🌸</div>
+  </div>
+
+  <!-- ORDER FORM -->
+  <div class="nb-form-wrap" id="nb-order">
+    <div class="nb-form-header">অর্ডার করতে আপনার তথ্য দিয়ে নিচের ফরমটি পূরণ করুন</div>
+
+    <div id="nb-the-form">
+      <label class="nb-label">আপনার নাম <span>*</span></label>
+      <input type="text" class="nb-input" id="nb-name" placeholder="আপনার সম্পূর্ণ নাম">
+
+      <label class="nb-label">আপনার মোবাইল নাম্বার <span>*</span></label>
+      <input type="tel" class="nb-input" id="nb-phone" placeholder="01XXXXXXXXX">
+
+      <label class="nb-label">আপনার সম্পূর্ণ ঠিকানা <span>*</span></label>
+      <textarea class="nb-textarea" id="nb-address" placeholder="রোড, এলাকা, থানা, জেলা"></textarea>
+
+      <label class="nb-label">অর্ডার নোট (ঐচ্ছিক)</label>
+      <input type="text" class="nb-input" id="nb-note" placeholder="রঙ, সাইজ বা বিশেষ নির্দেশনা">
+
+      <!-- ✅ Delivery charge বদলাতে পারবেন -->
+      <div class="nb-del-title">ডেলিভারি এলাকা নির্বাচন করুন <span style="color:#e53935">*</span></div>
+      <div class="nb-del-opts">
+        <label class="nb-del-opt" id="nb-opt-outside" onclick="nbDelivery('outside')">
+          <input type="radio" name="nbdel" value="outside">
+          <span>ঢাকা সিটির বাইরে</span>
+          <span class="nb-del-price">৳ ১২০.০০</span>
+        </label>
+        <label class="nb-del-opt" id="nb-opt-dhaka" onclick="nbDelivery('dhaka')">
+          <input type="radio" name="nbdel" value="dhaka">
+          <span>ঢাকা সিটির ভেতরে</span>
+          <span class="nb-del-price">৳ ৬০.০০</span>
+        </label>
+      </div>
+
+      <div class="nb-summary">
+        <div class="nb-sum-row"><span>প্রিমিয়াম হিজাব (১ পিস)</span><span>৳২৯৯</span></div>
+        <div class="nb-sum-row"><span>ডেলিভারি চার্জ</span><span id="nb-del-cost">— নির্বাচন করুন</span></div>
+        <div class="nb-sum-row total"><span>মোট</span><span id="nb-total">৳২৯৯</span></div>
+      </div>
+
+      <button class="nb-submit" id="nb-btn" onclick="nbSubmit()">অর্ডার কনফার্ম করুন</button>
+      <div class="nb-submit-note">আমাদের একজন কাস্টমার প্রতিনিধি আপনার কল করে আবার কনফার্ম করবে 🌸</div>
+    </div>
+
+    <div class="nb-success" id="nb-success">
+      <div class="nb-success-icon">✅</div>
+      <div class="nb-success-title">অর্ডার সফল হয়েছে!</div>
+      <p class="nb-success-sub">ধন্যবাদ আপনার অর্ডারের জন্য 🌸<br>আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।<br><br>
+      📞 <strong>01700-000000</strong><br>📘 <strong>facebook.com/noorabi</strong></p>
+    </div>
+  </div>
+
+  <div style="padding:0 16px 20px;background:#fff;">
+    <button class="nb-order-btn" onclick="document.getElementById('nb-order').scrollIntoView({behavior:'smooth'})">অর্ডার করুন</button>
+  </div>
+
+  <div class="nb-footer">
+    <strong>Noorabi</strong> — Experience the Premium<br>
+    📞 01700-000000 | 📘 facebook.com/noorabi<br>
+    © 2025 Noorabi. All rights reserved.
+  </div>
+
+</div>
+
+<script>
+var NB_SCRIPT = 'https://script.google.com/macros/s/AKfycbypZQ0ESlRDVLGabO3ksjGTPCFLTdZ4Gb2cUgQhajxw41fSXO1KsFImoTMSiH6pY4kj/exec';
+var nbArea = '', nbCharge = 0;
+
+function nbThumb(el, src) {
+  document.querySelectorAll('.nb-thumb').forEach(function(t){ t.classList.remove('active'); });
+  el.classList.add('active');
+  var main = document.getElementById('nb-img-main');
+  if (main) main.src = src;
+}
+
+function nbDelivery(type) {
+  nbArea = type;
+  document.querySelectorAll('.nb-del-opt').forEach(function(o){ o.classList.remove('selected'); });
+  document.querySelectorAll('input[name="nbdel"]').forEach(function(r){ r.checked = false; });
+  if (type === 'dhaka') {
+    nbCharge = 60;
+    document.getElementById('nb-opt-dhaka').classList.add('selected');
+    document.querySelector('#nb-opt-dhaka input').checked = true;
+    document.getElementById('nb-del-cost').textContent = '৳৬০';
+  } else {
+    nbCharge = 120;
+    document.getElementById('nb-opt-outside').classList.add('selected');
+    document.querySelector('#nb-opt-outside input').checked = true;
+    document.getElementById('nb-del-cost').textContent = '৳১২০';
+  }
+  document.getElementById('nb-total').textContent = '৳' + (299 + nbCharge);
+}
+
+function nbSubmit() {
+  var name = document.getElementById('nb-name').value.trim();
+  var phone = document.getElementById('nb-phone').value.trim();
+  var address = document.getElementById('nb-address').value.trim();
+  var note = document.getElementById('nb-note').value.trim();
+  if (!name) { alert('অনুগ্রহ করে আপনার নাম লিখুন।'); return; }
+  if (!phone || phone.length < 11) { alert('সঠিক মোবাইল নম্বর দিন।'); return; }
+  if (!address) { alert('সম্পূর্ণ ঠিকানা লিখুন।'); return; }
+  if (!nbArea) { alert('ডেলিভারি এলাকা নির্বাচন করুন।'); return; }
+  var btn = document.getElementById('nb-btn');
+  btn.textContent = '⏳ অর্ডার পাঠানো হচ্ছে...';
+  btn.disabled = true;
+  var now = new Date();
+  var date = now.toLocaleString('en-GB');
+  var areaText = nbArea === 'dhaka' ? 'ঢাকা সিটির ভেতরে' : 'ঢাকা সিটির বাইরে';
+  var total = '৳' + (299 + nbCharge);
+  var params = '?date=' + encodeURIComponent(date)
+    + '&name=' + encodeURIComponent(name)
+    + '&phone=' + encodeURIComponent(phone)
+    + '&area=' + encodeURIComponent(areaText)
+    + '&address=' + encodeURIComponent(address)
+    + '&note=' + encodeURIComponent(note || 'নেই')
+    + '&total=' + encodeURIComponent(total);
+  var img = new Image();
+  img.onload = nbSuccess;
+  img.onerror = nbSuccess;
+  img.src = NB_SCRIPT + params;
+}
+
+function nbSuccess() {
+  document.getElementById('nb-the-form').style.display = 'none';
+  document.getElementById('nb-success').style.display = 'block';
+  window.scrollTo({ top: document.getElementById('nb-order').offsetTop, behavior: 'smooth' });
+}
+</script>
